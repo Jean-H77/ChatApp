@@ -20,7 +20,7 @@ public class Chat {
                 1: Help
                 2: My IP
                 3: My Port
-                4: Connect To Device
+                4: Connect <destination> <port>
                 5: List
                 6: Terminate a Connection
                 7: Send Message
@@ -51,6 +51,13 @@ public class Chat {
                 case "1" -> System.out.println(help);
                 case "2" -> System.out.println("process IP address: " + peer.server().getIP());
                 case "3" -> System.out.println("Port: " + peer.server().getPort());
+                case "4" -> {
+                    System.out.println("Enter <destination> <port> :");
+                    String[] split = scanner.nextLine().split("\\s+");
+                    String dest = split[0];
+                    String ip = split[1];
+                    peer.connect(dest, Integer.parseInt(ip));
+                }
             }
         }
     }

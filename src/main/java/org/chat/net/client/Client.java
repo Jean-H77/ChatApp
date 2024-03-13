@@ -15,4 +15,8 @@ public class Client implements Runnable {
     public void run() {
 
     }
+
+    public void connect(String ip, int port) {
+
+    }
 }

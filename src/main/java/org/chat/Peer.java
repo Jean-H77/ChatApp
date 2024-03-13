@@ -23,6 +23,14 @@ public record Peer(
     }
 
     public void connect(String dest, int port) {
+        client.connect(dest, port);
+    }
+
+    public void sendMessage(String connectionId, String message) {
+
+    }
+
+    public void terminate(String connectionId) {
 
     }
 
