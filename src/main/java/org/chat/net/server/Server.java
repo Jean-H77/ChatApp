@@ -20,7 +20,7 @@ public class Server implements Runnable {
     public void run() {
         try {
             int backlog = 50; //we'll set max to 50
-            serverSocket = new ServerSocket(1, backlog, InetAddress.getLocalHost());
+            serverSocket = new ServerSocket(port, backlog, InetAddress.getLocalHost());
             LOG.info("[SERVER] STARTING SERVER ON " + serverSocket.getInetAddress().getHostAddress() + ":" + port);
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "Unable to connect to server", e);
