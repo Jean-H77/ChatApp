@@ -1,15 +1,61 @@
 package org.chat;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.*;
 import java.util.Scanner;
 
+public class Chat {
 
-public class Main {
-    private  ServerSocket serverSocket;
+    public static void main(String[] args) {
+        int port = 88;
+        if(args.length > 0) {
+            port = Integer.parseInt(args[0]);
+        }
+
+        Peer peer = Peer.create(port);
+        peer.startServer();
+
+        String opts =
+                """
+                
+                Please select a command:
+                1: Help
+                2: My IP
+                3: My Port
+                4: Connect To Device
+                5: List
+                6: Terminate a Connection
+                7: Send Message
+                8: Exit
+                
+                """;
+
+        String help =
+                """
+                
+                My IP: Displays the IP address of the process.
+                My Port: Displays the port on which this process is listening for incoming connections
+                Connect to Device: Establishes a new TCP connection to the specified destination at the specified port
+                List: Displays a numbered list of all the connections that this process is a part of
+                Terminate a Connection: Terminate the connection listed under the specified number when List is used to display all connections
+                Send Message: Send a message to the host on the connection that is designated
+                Exit: Closes all connections and terminates the process
+                
+                """;
+
+        Scanner scanner = new Scanner(System.in);
+
+        while(true) {
+            System.out.println(opts);
+            String choice = scanner.nextLine();
+
+            switch (choice) {
+                case "1" -> System.out.println(help);
+                case "2" -> System.out.println("process IP address: " + peer.server().getIP());
+                case "3" -> System.out.println("Port: " + peer.server().getPort());
+            }
+        }
+    }
+
+    /*private  ServerSocket serverSocket;
     private  Socket connectedSocket;
     private Socket clientSocket;
 
@@ -17,7 +63,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         String port = args[0];
         Scanner obj = new Scanner(System.in);
-        Main x = new Main();
+        Chat x = new Chat();
         int newport;
         String newIP;
 
@@ -120,7 +166,7 @@ public class Main {
             }
         });
         thread.start();
-    }
+    }*/
 
 
 }
