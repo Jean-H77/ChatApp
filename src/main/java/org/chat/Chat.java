@@ -1,10 +1,13 @@
 package org.chat;
 
+import java.io.IOException;
+import java.net.InetAddress;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Chat {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         int port = 88;
         if(args.length > 0) {
             port = Integer.parseInt(args[0]);
@@ -42,11 +45,10 @@ public class Chat {
                 """;
 
         Scanner scanner = new Scanner(System.in);
-
+        // peer.client().start(value[1], port);
         while(true) {
             System.out.println(opts);
             String choice = scanner.nextLine();
-
             switch (choice) {
                 case "1" -> System.out.println(help);
                 case "2" -> System.out.println("process IP address: " + peer.server().getIP());
@@ -56,13 +58,20 @@ public class Chat {
                     String[] split = scanner.nextLine().split("\\s+");
                     String dest = split[0];
                     String ip = split[1];
+                    if (Integer.parseInt(ip) == port) {
+                        System.out.println("Sorry, you can't do a self-connection.");
+                        break;
+                    }
                     peer.connect(dest, Integer.parseInt(ip));
+                }
+                case "5" -> {
+                    peer.getList();
                 }
             }
         }
     }
 
-    /*private  ServerSocket serverSocket;
+    /* private  ServerSocket serverSocket;
     private  Socket connectedSocket;
     private Socket clientSocket;
 

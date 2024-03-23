@@ -3,6 +3,7 @@ package org.chat;
 import org.chat.net.client.Client;
 import org.chat.net.server.Server;
 
+import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -22,16 +23,25 @@ public record Peer(
         serverExecutor.submit(server);
     }
 
-    public void connect(String dest, int port) {
+    public void connect(String dest, int port) throws IOException {
         client.connect(dest, port);
+    }
+
+    public void selfConnect(String ip, int port) throws IOException {
+
     }
 
     public void sendMessage(String connectionId, String message) {
 
     }
 
+
     public void terminate(String connectionId) {
 
+    }
+
+    public void getList() {
+        client.list(client.value(), server.list());
     }
 
     public void stop() {
