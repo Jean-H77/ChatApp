@@ -1,62 +1,68 @@
 package org.chat.net.client;
 
-import org.chat.net.server.Server;
-
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.logging.Logger;
 
 public class Client implements Runnable {
 
+    private static final Logger LOG = Logger.getLogger(Client.class.getSimpleName());
+    private final List<String> connections = new CopyOnWriteArrayList<>();
+
     private int port;
     private Socket socket;
-    private ArrayList<String> ip2 = new ArrayList<>();
-    private ArrayList<String> port2 = new ArrayList<>();
-    private ArrayList<String> split = new ArrayList<>();
-    public Client() {
-
-    }
+    private DataOutputStream out;
+    private DataInputStream in;
 
     @Override
     public void run() {
-
-    }
-
-    public ArrayList<String> value() {
-        return split;
+        LOG.info("Starting loop");
+        try {
+            if(in.available() > 0) {
+                int opcode = in.readByte();
+                LOG.info("Reading opcode: " + opcode);
+                switch (opcode) {
+                    case 10 -> populateConnectionsList();
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void connect(String ip, int port) throws IOException {
         socket = new Socket(ip, port);
-        System.out.println("Connection Successful!");
-        split.add(socket.getRemoteSocketAddress().toString().replaceAll("/","").replaceAll(":", " ").split("\\s+")[0]);
-        split.add(socket.getRemoteSocketAddress().toString().replaceAll("/","").replaceAll(":", " ").split("\\s+")[1]);
-
-        /*else {
-            split.set(0, socket.getRemoteSocketAddress().toString().replaceAll("/","").replaceAll(":", " ").split("\\s+")[0]);
-            split.set(1, socket.getRemoteSocketAddress().toString().replaceAll("/","").replaceAll(":", " ").split("\\s+")[1]);
-        }*/
-        System.out.println(split);
+        out = new DataOutputStream(socket.getOutputStream());
+        in = new DataInputStream(socket.getInputStream());
+        LOG.info("Connected");
     }
 
-   public void list(ArrayList<String> value, ArrayList<String> value2) {
-        int count = 1;
-        if (value2 != null) {
-            value.addAll(value2);
-        }
-        System.out.println("ID: \t Address: \t Port:");
-        for(int i = 0; i <= value.size() - 1; i += 2) {
-            System.out.println(count + ":\t" + value.get(i) + " \t" + value.get(i+1));
-            count++;
-        }
-   }
+    public Socket getSocket() {
+        return socket;
+    }
 
-   public ArrayList<String> connect2(String ip, String port) {
-        split.add(ip);
-        split.add(port);
-        return split;
-   }
+    public void populateConnectionsList() throws IOException {
+        connections.clear();
+        int size = in.read() - 1;
+        int oLength = in.read();
 
+        String oIp = new String(in.readNBytes(oLength));
+        int oPort = in.readUnsignedShort();
+        connections.add(oIp + ":" + oPort);
+
+        for(int i = 0; i < size; i++) {
+            int length = in.read();
+            String ip = new String(in.readNBytes(length));
+            int port = in.readUnsignedShort();
+            connections.add(ip + ":" + port);
+        }
+    }
+
+    public List<String> getConnections() {
+        return connections;
+    }
 }

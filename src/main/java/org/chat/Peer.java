@@ -4,6 +4,8 @@ import org.chat.net.client.Client;
 import org.chat.net.server.Server;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -12,11 +14,12 @@ public record Peer(
         Server server,
         Client client,
         ExecutorService serverExecutor,
-        ExecutorService clientExecutor
+        ExecutorService clientExecutor,
+        List<String> connections
 ) {
 
     public static Peer create(int serverPort) {
-        return new Peer(new Server(serverPort), new Client(), Executors.newSingleThreadExecutor(), Executors.newSingleThreadExecutor());
+        return new Peer(new Server(serverPort), new Client(), Executors.newSingleThreadExecutor(), Executors.newSingleThreadExecutor(), new CopyOnWriteArrayList<>());
     }
 
     public void startServer() {
@@ -25,6 +28,7 @@ public record Peer(
 
     public void connect(String dest, int port) throws IOException {
         client.connect(dest, port);
+        clientExecutor.submit(client);
     }
 
     public void selfConnect(String ip, int port) throws IOException {
@@ -40,8 +44,8 @@ public record Peer(
 
     }
 
-    public void getList() {
-        client.list(client.value(), server.list());
+    public List<String> getConnectionsList() {
+        return client.getConnections();
     }
 
     public void stop() {
