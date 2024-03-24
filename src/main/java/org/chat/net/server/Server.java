@@ -102,7 +102,7 @@ public class Server implements Runnable {
         public void sendUpdatedConnectionsList() {
             try {
                 out.write(10);
-                out.write(Server.this.connections.size() + 1); // +1 for the owner of the server
+                out.write(Server.this.connections.size());
                 out.writeByte(serverSocket.getInetAddress().getHostAddress().length());
                 out.writeBytes(serverSocket.getInetAddress().getHostAddress());
                 out.writeShort(port);

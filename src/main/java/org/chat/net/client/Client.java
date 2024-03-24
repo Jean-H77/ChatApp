@@ -47,13 +47,11 @@ public class Client implements Runnable {
 
     public void populateConnectionsList() throws IOException {
         connections.clear();
-        int size = in.read() - 1;
+        int size = in.read();
         int oLength = in.read();
-
         String oIp = new String(in.readNBytes(oLength));
         int oPort = in.readUnsignedShort();
         connections.add(oIp + ":" + oPort);
-
         for(int i = 0; i < size; i++) {
             int length = in.read();
             String ip = new String(in.readNBytes(length));
