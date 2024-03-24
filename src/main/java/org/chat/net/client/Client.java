@@ -3,10 +3,14 @@ package org.chat.net.client;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Logger;
+
+import static org.chat.net.PacketConstants.*;
 
 public class Client implements Runnable {
 
@@ -17,28 +21,31 @@ public class Client implements Runnable {
     private Socket socket;
     private DataOutputStream out;
     private DataInputStream in;
+    private boolean isRunning;
 
     @Override
     public void run() {
-        LOG.info("Starting loop");
-        try {
-            if(in.available() > 0) {
-                int opcode = in.readByte();
-                LOG.info("Reading opcode: " + opcode);
-                switch (opcode) {
-                    case 10 -> populateConnectionsList();
+        isRunning = true;
+        while(isRunning) {
+            try {
+                if (in.available() > 0) {
+                    int opcode = in.readByte();
+                    LOG.info("Reading opcode: " + opcode);
+                    switch (opcode) {
+                        case CONNECTIONS_LIST_OPCODE -> populateConnectionsList();
+                    }
                 }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
     public void connect(String ip, int port) throws IOException {
         socket = new Socket(ip, port);
+       // socket.bind(new InetSocketAddress(port));
         out = new DataOutputStream(socket.getOutputStream());
         in = new DataInputStream(socket.getInputStream());
-        LOG.info("Connected");
     }
 
     public Socket getSocket() {
@@ -48,10 +55,6 @@ public class Client implements Runnable {
     public void populateConnectionsList() throws IOException {
         connections.clear();
         int size = in.read();
-        int oLength = in.read();
-        String oIp = new String(in.readNBytes(oLength));
-        int oPort = in.readUnsignedShort();
-        connections.add(oIp + ":" + oPort);
         for(int i = 0; i < size; i++) {
             int length = in.read();
             String ip = new String(in.readNBytes(length));
@@ -62,5 +65,13 @@ public class Client implements Runnable {
 
     public List<String> getConnections() {
         return connections;
+    }
+
+    public boolean isRunning() {
+        return isRunning;
+    }
+
+    public void setRunning(boolean running) {
+        isRunning = running;
     }
 }

@@ -4,6 +4,7 @@ import org.chat.net.client.Client;
 import org.chat.net.server.Server;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
@@ -18,8 +19,8 @@ public record Peer(
         List<String> connections
 ) {
 
-    public static Peer create(int serverPort) {
-        return new Peer(new Server(serverPort), new Client(), Executors.newSingleThreadExecutor(), Executors.newSingleThreadExecutor(), new CopyOnWriteArrayList<>());
+    public static Peer create(int port) {
+        return new Peer(new Server(port), new Client(), Executors.newSingleThreadExecutor(), Executors.newSingleThreadExecutor(), new CopyOnWriteArrayList<>());
     }
 
     public void startServer() {

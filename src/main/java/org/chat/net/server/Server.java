@@ -1,25 +1,19 @@
 package org.chat.net.server;
 
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static org.chat.net.PacketConstants.CONNECTIONS_LIST_OPCODE;
 
 public class Server implements Runnable {
 
     private static final Logger LOG = Logger.getLogger(Server.class.getSimpleName());
     private static final int BACK_LOG = 50;
-    private static final int MAX_CLIENT_THREADS = 100;
-    private final Set<Socket> connections = ConcurrentHashMap.newKeySet();
-    private final ExecutorService clientThreads = Executors.newFixedThreadPool(MAX_CLIENT_THREADS);
     private final int port;
 
     private ServerSocket serverSocket;
@@ -36,17 +30,32 @@ public class Server implements Runnable {
         } catch (IOException e) {
             LOG.log(Level.SEVERE, "Unable to start server on port: " + port, e);
         }
-
         isRunning = true;
         while (isRunning) {
             try {
-                Socket incomingConnection = serverSocket.accept();
-                connections.add(incomingConnection);
-                clientThreads.submit(new ClientHandler(incomingConnection));
+                Socket socket = serverSocket.accept();
+                ServerContext.INSTANCE.addClientHandler(new ClientHandler(socket));
                 LOG.info("Received connection\n\n");
+                ServerContext.INSTANCE.getClients().forEach(clientHandler -> sendConnectionList(clientHandler.getOut()));
             } catch (IOException e) {
                 LOG.log(Level.SEVERE, "Unable to connect to server", e);
             }
+        }
+    }
+
+    public void sendConnectionList(DataOutputStream out) {
+        try {
+            ServerContext context = ServerContext.INSTANCE;
+            out.write(CONNECTIONS_LIST_OPCODE);
+            out.write(context.getClients().size());
+            for (ClientHandler h : context.getClients()) {
+                out.writeByte(h.getIp().length());
+                out.writeBytes(h.getIp());
+                out.writeShort(h.getPort());
+            }
+            out.flush();
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "Unable to send updated connections list", e);
         }
     }
 
@@ -58,64 +67,7 @@ public class Server implements Runnable {
         return port;
     }
 
-    public Set<Socket> getConnections() {
-        return connections;
-    }
-
     public void stop() {
         isRunning = false;
-    }
-
-    class ClientHandler implements Runnable {
-        private final Socket socket;
-        private final DataOutputStream out;
-        private final DataInputStream in;
-
-        ClientHandler(Socket socket) throws IOException {
-            this.socket = socket;
-            out = new DataOutputStream(socket.getOutputStream());
-            in = new DataInputStream(socket.getInputStream());
-
-            sendUpdatedConnectionsList();
-        }
-
-        @Override
-        public void run() {
-            while (true) {
-                try {
-                    if (in.available() > 0) {
-                        int code = in.readByte();
-                        LOG.info("Incoming code " + code + " \n");
-
-                        switch (code) {
-
-                        }
-                    }
-
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
-
-        //@Todo(John) better logging
-        public void sendUpdatedConnectionsList() {
-            try {
-                out.write(10);
-                out.write(Server.this.connections.size());
-                out.writeByte(serverSocket.getInetAddress().getHostAddress().length());
-                out.writeBytes(serverSocket.getInetAddress().getHostAddress());
-                out.writeShort(port);
-                LOG.info("Writing Port: " + port);
-                for (Socket s : Server.this.connections) {
-                    out.writeByte(s.getInetAddress().getHostAddress().length());
-                    out.writeBytes(s.getInetAddress().getHostAddress());
-                    out.writeShort(s.getPort());
-                }
-                out.flush();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
     }
 }
