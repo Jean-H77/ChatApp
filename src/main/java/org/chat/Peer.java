@@ -3,24 +3,26 @@ package org.chat;
 import org.chat.net.client.Client;
 import org.chat.net.server.Server;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import static org.chat.net.PacketConstants.CONNECTIONS_LIST_OPCODE;
+
 public record Peer(
         Server server,
-        Client client,
+        List<Client> clients,
         ExecutorService serverExecutor,
         ExecutorService clientExecutor,
         List<String> connections
 ) {
 
     public static Peer create(int port) {
-        return new Peer(new Server(port), new Client(), Executors.newSingleThreadExecutor(), Executors.newSingleThreadExecutor(), new CopyOnWriteArrayList<>());
+        return new Peer(new Server(port), new CopyOnWriteArrayList<>(), Executors.newSingleThreadExecutor(), Executors.newSingleThreadExecutor(), new CopyOnWriteArrayList<>());
     }
 
     public void startServer() {
@@ -28,8 +30,10 @@ public record Peer(
     }
 
     public void connect(String dest, int port) throws IOException {
-        client.connect(dest, port);
-        clientExecutor.submit(client);
+        Client c = new Client();
+        c.connect(dest, port);
+        clients.add(c);
+        clientExecutor.submit(c);
     }
 
     public void selfConnect(String ip, int port) throws IOException {
@@ -45,8 +49,15 @@ public record Peer(
 
     }
 
-    public List<String> getConnectionsList() {
-        return client.getConnections();
+    public void  requestConnectionsList() {
+        for(Client c : clients) {
+            DataOutputStream out = c.getOut();
+            try {
+                out.write(CONNECTIONS_LIST_OPCODE);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void stop() {

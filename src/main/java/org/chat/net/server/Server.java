@@ -34,9 +34,9 @@ public class Server implements Runnable {
         while (isRunning) {
             try {
                 Socket socket = serverSocket.accept();
+                LOG.info("Accepting connection: " + socket.getPort() + " " + socket.getLocalPort());
                 ServerContext.INSTANCE.addClientHandler(new ClientHandler(socket));
                 LOG.info("Received connection\n\n");
-                ServerContext.INSTANCE.getClients().forEach(clientHandler -> sendConnectionList(clientHandler.getOut()));
             } catch (IOException e) {
                 LOG.log(Level.SEVERE, "Unable to connect to server", e);
             }

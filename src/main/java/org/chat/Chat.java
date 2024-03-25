@@ -1,13 +1,13 @@
 package org.chat;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Scanner;
 
+// java -cp <classpath> <main_class> <arguments>
 public class Chat {
 
     public static void main(String[] args) throws IOException {
-        int port = 5000;
+        int port = 5001;
         if(args.length > 0) {
             port = Integer.parseInt(args[0]);
         }
@@ -66,12 +66,13 @@ public class Chat {
                     peer.connect(dest, Integer.parseInt(ip));
                 }
                 case "5" -> {
-                   List<String> connections = peer.getConnectionsList();
+                    peer.requestConnectionsList();
+                   /*List<String> connections = peer.requestConnectionsList();
                     System.out.println("Connections ---- start");
                     for(int i = 0; i < connections.size(); i++) {
                        System.out.println(i+")" + connections.get(i));
                    }
-                    System.out.println("Connections ---- end");
+                    System.out.println("Connections ---- end");*/
                 }
                 case "8" -> isRunning = false;
             }

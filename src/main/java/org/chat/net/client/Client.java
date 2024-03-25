@@ -3,14 +3,12 @@ package org.chat.net.client;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Logger;
 
-import static org.chat.net.PacketConstants.*;
+import static org.chat.net.PacketConstants.CONNECTIONS_LIST_OPCODE;
 
 public class Client implements Runnable {
 
@@ -43,7 +41,6 @@ public class Client implements Runnable {
 
     public void connect(String ip, int port) throws IOException {
         socket = new Socket(ip, port);
-       // socket.bind(new InetSocketAddress(port));
         out = new DataOutputStream(socket.getOutputStream());
         in = new DataInputStream(socket.getInputStream());
     }
@@ -73,5 +70,9 @@ public class Client implements Runnable {
 
     public void setRunning(boolean running) {
         isRunning = running;
+    }
+
+    public DataOutputStream getOut() {
+        return out;
     }
 }
