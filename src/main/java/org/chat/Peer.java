@@ -28,7 +28,7 @@ public record Peer(
     private static final Logger LOG = Logger.getLogger(Peer.class.getSimpleName());
 
     public static Peer create(int port) {
-        return new Peer(new Server(port), new CopyOnWriteArrayList<>(), Executors.newSingleThreadExecutor(), Executors.newSingleThreadExecutor(), new CopyOnWriteArrayList<>());
+        return new Peer(new Server(port), new CopyOnWriteArrayList<>(), Executors.newSingleThreadExecutor(), Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors()), new CopyOnWriteArrayList<>());
     }
 
     public void startServer() {
@@ -38,8 +38,10 @@ public record Peer(
     public void connect(String dest, int port) throws IOException {
         Client c = new Client();
         c.connect(dest, port);
+        LOG.info("Connecting to: " + dest + " " + port);
         clients.add(c);
         clientExecutor.submit(c);
+        LOG.info("Client size: " + clients.size());
     }
 
     public void sendMessage(int id, String message) {
@@ -54,7 +56,6 @@ public record Peer(
         }
         System.out.println("Message sent to " + id);
     }
-
 
     public void terminate(String connectionId) {
 

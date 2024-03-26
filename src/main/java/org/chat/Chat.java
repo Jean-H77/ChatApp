@@ -11,7 +11,7 @@ import java.util.Set;
 public class Chat {
 
     public static void main(String[] args) throws IOException {
-        int port = 5001;
+        int port = 5002;
         if(args.length > 0) {
             port = Integer.parseInt(args[0]);
         }

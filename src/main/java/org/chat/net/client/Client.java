@@ -21,6 +21,7 @@ public class Client implements Runnable {
     @Override
     public void run() {
         isRunning = true;
+        LOG.info("Running client loop");
         while(isRunning) {
             try {
                 if (in.available() > 0) {
@@ -39,6 +40,7 @@ public class Client implements Runnable {
         socket = new Socket(ip, port);
         out = new DataOutputStream(socket.getOutputStream());
         in = new DataInputStream(socket.getInputStream());
+        LOG.info("Started client connection");
     }
 
     public Socket getSocket() {
