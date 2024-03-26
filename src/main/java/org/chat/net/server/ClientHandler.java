@@ -23,7 +23,7 @@ public class ClientHandler implements Runnable {
     public ClientHandler(Socket socket) {
         this.socket = socket;
         this.ip = socket.getInetAddress().getHostAddress();
-        this.port = socket.getLocalPort();
+        this.port = socket.getPort();
         try {
             out = new DataOutputStream(socket.getOutputStream());
             in = new DataInputStream(socket.getInputStream());

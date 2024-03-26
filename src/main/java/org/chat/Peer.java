@@ -1,17 +1,16 @@
 package org.chat;
 
 import org.chat.net.client.Client;
+import org.chat.net.server.ClientHandler;
 import org.chat.net.server.Server;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-
-import static org.chat.net.PacketConstants.CONNECTIONS_LIST_OPCODE;
 
 public record Peer(
         Server server,
@@ -40,8 +39,8 @@ public record Peer(
 
     }
 
-    public void sendMessage(String connectionId, String message) {
-
+    public void sendMessage(ClientHandler client, String message) {
+        System.out.println("Received message: " + message);
     }
 
 
@@ -49,15 +48,12 @@ public record Peer(
 
     }
 
-    public void  requestConnectionsList() {
-        for(Client c : clients) {
-            DataOutputStream out = c.getOut();
-            try {
-                out.write(CONNECTIONS_LIST_OPCODE);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+    public Set<ClientHandler> getConnections() {
+        return server.getClientHandlers();
+    }
+
+    public ClientHandler getClientByIndex(int index) {
+        return server.getClientByIndex(index-1);
     }
 
     public void stop() {

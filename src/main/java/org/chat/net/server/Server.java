@@ -1,19 +1,19 @@
 package org.chat.net.server;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import static org.chat.net.PacketConstants.CONNECTIONS_LIST_OPCODE;
 
 public class Server implements Runnable {
 
     private static final Logger LOG = Logger.getLogger(Server.class.getSimpleName());
     private static final int BACK_LOG = 50;
+    private final ServerContext context = ServerContext.INSTANCE;
     private final int port;
 
     private ServerSocket serverSocket;
@@ -34,8 +34,8 @@ public class Server implements Runnable {
         while (isRunning) {
             try {
                 Socket socket = serverSocket.accept();
-                LOG.info("Accepting connection: " + socket.getPort() + " " + socket.getLocalPort());
-                ServerContext.INSTANCE.addClientHandler(new ClientHandler(socket));
+                LOG.info("Accepting connection: " + socket.getInetAddress() + ":" + socket.getPort());
+                context.addClientHandler(new ClientHandler(socket));
                 LOG.info("Received connection\n\n");
             } catch (IOException e) {
                 LOG.log(Level.SEVERE, "Unable to connect to server", e);
@@ -43,20 +43,13 @@ public class Server implements Runnable {
         }
     }
 
-    public void sendConnectionList(DataOutputStream out) {
-        try {
-            ServerContext context = ServerContext.INSTANCE;
-            out.write(CONNECTIONS_LIST_OPCODE);
-            out.write(context.getClients().size());
-            for (ClientHandler h : context.getClients()) {
-                out.writeByte(h.getIp().length());
-                out.writeBytes(h.getIp());
-                out.writeShort(h.getPort());
-            }
-            out.flush();
-        } catch (Exception e) {
-            LOG.log(Level.SEVERE, "Unable to send updated connections list", e);
-        }
+    public ClientHandler getClientByIndex(int i) {
+        Set<ClientHandler> clientSet = context.getClients();
+        return new ArrayList<>(clientSet).get(i);
+    }
+
+    public Set<ClientHandler> getClientHandlers() {
+        return context.getClients();
     }
 
     public String getIP() {

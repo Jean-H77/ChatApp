@@ -1,7 +1,10 @@
 package org.chat;
 
+import org.chat.net.server.ClientHandler;
+
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.Set;
 
 // java -cp <classpath> <main_class> <arguments>
 public class Chat {
@@ -56,9 +59,9 @@ public class Chat {
                 case "3" -> System.out.println("Port: " + peer.server().getPort());
                 case "4" -> {
                     System.out.println("Enter <destination> <port> :");
-                    String[] split = scanner.nextLine().split("\\s+");
-                    String dest = split[0];
-                    String ip = split[1];
+                    String[] parts = scanner.nextLine().split("\\s+");
+                    String dest = parts[0];
+                    String ip = parts[1];
                     if (Integer.parseInt(ip) == port) {
                         System.out.println("Sorry, you can't do a self-connection.");
                         break;
@@ -66,13 +69,21 @@ public class Chat {
                     peer.connect(dest, Integer.parseInt(ip));
                 }
                 case "5" -> {
-                    peer.requestConnectionsList();
-                   /*List<String> connections = peer.requestConnectionsList();
-                    System.out.println("Connections ---- start");
-                    for(int i = 0; i < connections.size(); i++) {
-                       System.out.println(i+")" + connections.get(i));
-                   }
-                    System.out.println("Connections ---- end");*/
+                    Set<ClientHandler> connections = peer.getConnections();
+                    System.out.println("id: IP address\t\t\tPort No.");
+                    int i = 0;
+                    for(ClientHandler c : connections) {
+                        System.out.println((i+1)+": " + c.getIp() + "\t\t\t" + c.getPort());
+                        i++;
+                    }
+                }
+                case "7" -> {
+                    System.out.println("Enter <connection.id.> <message>");
+                    String line = scanner.nextLine();
+                    String[] parts = line.split("\\s", 2);
+                    int id = Integer.parseInt(parts[0]);
+                    String message = parts[1];
+                    peer.sendMessage(peer.getClientByIndex(id), message);
                 }
                 case "8" -> isRunning = false;
             }
