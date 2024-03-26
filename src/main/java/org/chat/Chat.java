@@ -84,7 +84,11 @@ public class Chat {
                     String[] parts = line.split("\\s", 2);
                     int id = Integer.parseInt(parts[0]);
                     String message = parts[1];
-                    peer.sendMessage(id, message);
+                    if(message.length() > 100) {
+                        System.out.println("Unable to send message with length " + message.length());
+                    } else {
+                        peer.sendMessage(id, message);
+                    }
                 }
                 case "8" -> isRunning = false;
             }
