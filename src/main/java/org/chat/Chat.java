@@ -7,10 +7,11 @@ import java.util.Scanner;
 import java.util.Set;
 
 // java -cp <classpath> <main_class> <arguments>
+// 192.168.1.228
 public class Chat {
 
     public static void main(String[] args) throws IOException {
-        int port = 5001;
+        int port = 5002;
         if(args.length > 0) {
             port = Integer.parseInt(args[0]);
         }

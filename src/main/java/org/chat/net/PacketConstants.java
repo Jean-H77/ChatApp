@@ -4,5 +4,5 @@ public class PacketConstants {
 
     private PacketConstants() {}
 
-    public static final int CONNECTIONS_LIST_OPCODE = 10;
+    public static final int MESSAGE_OPCODE = 5;
 }

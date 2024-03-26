@@ -41,6 +41,7 @@ public class ClientHandler implements Runnable {
             try {
                 if (in.available() > 0) {
                     int opcode = in.readByte();
+                    System.out.println("Received");
                     switch (opcode) {
 
                     }

@@ -45,12 +45,14 @@ public record Peer(
     public void sendMessage(ClientHandler client, String message) {
         DataOutputStream out = client.getOut();
         try {
-            out.write(MESSAGE_OPCODE);
+            out.writeByte(MESSAGE_OPCODE);
+            out.writeByte(message.length());
             out.writeBytes(message);
             out.flush();
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "Unable to send message", e);
         }
+        System.out.println("Message sent: " + message);
     }
 
 

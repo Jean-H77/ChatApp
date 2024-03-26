@@ -35,7 +35,7 @@ public class Server implements Runnable {
             try {
                 Socket socket = serverSocket.accept();
                 context.addClientHandler(new ClientHandler(socket));
-                LOG.info("New connection: " + socket.getInetAddress() + ":" + socket.getPort());
+                System.out.println("New connection: " + socket.getInetAddress() + ":" + socket.getPort());
             } catch (IOException e) {
                 LOG.log(Level.SEVERE, "Unable to connect to server", e);
             }
