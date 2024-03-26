@@ -51,7 +51,7 @@ public class Server implements Runnable {
     }
 
     public ClientHandler getClientByIndex(int i) {
-        return new ArrayList<>(clientHandlers).get(i);
+        return clientHandlers.get(i);
     }
 
     public List<ClientHandler> getClientHandlers() {
