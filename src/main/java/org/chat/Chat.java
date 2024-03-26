@@ -81,6 +81,7 @@ public class Chat {
                 case "6" -> {
                     System.out.println("Enter in a <connection id> to terminate");
                     int line = scanner.nextInt();
+                    peer.sendMessage(line, "The connection has been terminated. Please connect again if you want to receive messages from this user.");
                     peer.terminate(line);
                 }
                 case "7" -> {

@@ -38,11 +38,8 @@ public class Server implements Runnable {
         isRunning = true;
         while (isRunning) {
             try {
-                LOG.info("First");
                 Socket socket = serverSocket.accept();
-                LOG.info("Second");
                 addClientHandler(new ClientHandler(socket));
-                LOG.info("Third");
                 System.out.println("New connection: " + socket.getInetAddress() + ":" + socket.getPort());
             } catch (IOException e) {
                 LOG.log(Level.SEVERE, "Unable to connect to server", e);
