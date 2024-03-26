@@ -78,6 +78,11 @@ public class Chat {
                         i++;
                     }
                 }
+                case "6" -> {
+                    System.out.println("Enter in a <connection id> to terminate");
+                    int line = scanner.nextInt();
+                    peer.terminate(line);
+                }
                 case "7" -> {
                     System.out.println("Enter <connection.id.> <message>");
                     String line = scanner.nextLine();

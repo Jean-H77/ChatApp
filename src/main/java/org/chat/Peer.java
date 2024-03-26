@@ -57,8 +57,8 @@ public record Peer(
         System.out.println("Message sent to " + id);
     }
 
-    public void terminate(String connectionId) {
-
+    public void terminate(int connectionId) {
+        server.terminate(connectionId);
     }
 
     public Set<ClientHandler> getConnections() {

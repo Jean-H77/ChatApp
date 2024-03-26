@@ -16,7 +16,7 @@ public class Server implements Runnable {
 
     private static final Logger LOG = Logger.getLogger(Server.class.getSimpleName());
     private static final int BACK_LOG = 50;
-    private final Set<ClientHandler> clientHandlers = ConcurrentHashMap.newKeySet();
+    private Set<ClientHandler> clientHandlers = ConcurrentHashMap.newKeySet();
     private final ExecutorService clientThreads = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
     private final int port;
 
@@ -37,8 +37,11 @@ public class Server implements Runnable {
         isRunning = true;
         while (isRunning) {
             try {
+                LOG.info("First");
                 Socket socket = serverSocket.accept();
+                LOG.info("Second");
                 addClientHandler(new ClientHandler(socket));
+                LOG.info("Third");
                 System.out.println("New connection: " + socket.getInetAddress() + ":" + socket.getPort());
             } catch (IOException e) {
                 LOG.log(Level.SEVERE, "Unable to connect to server", e);
@@ -52,6 +55,11 @@ public class Server implements Runnable {
 
     public Set<ClientHandler> getClientHandlers() {
         return clientHandlers;
+    }
+
+    public void terminate(int i) {
+        ArrayList<ClientHandler> list = new ArrayList<>(clientHandlers);
+        clientHandlers.remove(list.remove(i-1));
     }
 
     public String getIP() {
