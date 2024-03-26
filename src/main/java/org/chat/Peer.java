@@ -42,8 +42,8 @@ public record Peer(
         clientExecutor.submit(c);
     }
 
-    public void sendMessage(ClientHandler client, String message) {
-        DataOutputStream out = client.getOut();
+    public void sendMessage(int id, String message) {
+        DataOutputStream out = getClientByIndex(id).getOut();
         try {
             out.writeByte(MESSAGE_OPCODE);
             out.writeByte(message.length());
@@ -52,7 +52,7 @@ public record Peer(
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "Unable to send message", e);
         }
-        System.out.println("Message sent: " + message);
+        System.out.println("Message sent to " + id);
     }
 
 

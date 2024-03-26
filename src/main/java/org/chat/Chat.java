@@ -11,7 +11,7 @@ import java.util.Set;
 public class Chat {
 
     public static void main(String[] args) throws IOException {
-        int port = 5002;
+        int port = 5001;
         if(args.length > 0) {
             port = Integer.parseInt(args[0]);
         }
@@ -84,7 +84,7 @@ public class Chat {
                     String[] parts = line.split("\\s", 2);
                     int id = Integer.parseInt(parts[0]);
                     String message = parts[1];
-                    peer.sendMessage(peer.getClientByIndex(id), message);
+                    peer.sendMessage(id, message);
                 }
                 case "8" -> isRunning = false;
             }
