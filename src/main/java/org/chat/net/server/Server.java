@@ -16,7 +16,7 @@ public class Server implements Runnable {
 
     private static final Logger LOG = Logger.getLogger(Server.class.getSimpleName());
     private static final int BACK_LOG = 50;
-    private final Set<ClientHandler> clients = ConcurrentHashMap.newKeySet();
+    private final Set<ClientHandler> clientHandlers = ConcurrentHashMap.newKeySet();
     private final ExecutorService clientThreads = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
     private final int port;
 
@@ -47,11 +47,11 @@ public class Server implements Runnable {
     }
 
     public ClientHandler getClientByIndex(int i) {
-        return new ArrayList<>(clients).get(i);
+        return new ArrayList<>(clientHandlers).get(i);
     }
 
     public Set<ClientHandler> getClientHandlers() {
-        return clients;
+        return clientHandlers;
     }
 
     public String getIP() {
@@ -68,6 +68,6 @@ public class Server implements Runnable {
 
     public void addClientHandler(ClientHandler clientHandler) {
         clientThreads.submit(clientHandler);
-        clients.add(clientHandler);
+        clientHandlers.add(clientHandler);
     }
 }
