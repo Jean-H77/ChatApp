@@ -5,8 +5,9 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
@@ -16,7 +17,7 @@ public class Server implements Runnable {
 
     private static final Logger LOG = Logger.getLogger(Server.class.getSimpleName());
     private static final int BACK_LOG = 50;
-    private Set<ClientHandler> clientHandlers = ConcurrentHashMap.newKeySet();
+    private final List<ClientHandler> clientHandlers = Collections.synchronizedList(new ArrayList<>());
     private final ExecutorService clientThreads = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
     private final int port;
 
@@ -53,13 +54,12 @@ public class Server implements Runnable {
         return new ArrayList<>(clientHandlers).get(i);
     }
 
-    public Set<ClientHandler> getClientHandlers() {
+    public List<ClientHandler> getClientHandlers() {
         return clientHandlers;
     }
 
     public void terminate(int i) {
-        ArrayList<ClientHandler> list = new ArrayList<>(clientHandlers);
-        clientHandlers.remove(list.remove(i-1));
+        clientHandlers.remove(i-1);
     }
 
     public String getIP() {
@@ -75,6 +75,14 @@ public class Server implements Runnable {
     }
 
     public void addClientHandler(ClientHandler clientHandler) {
+        if(clientHandlers.stream()
+                .anyMatch(c ->
+                c.getPort() == clientHandler.getPort() && Objects.equals(c.getIp(), clientHandler.getIp()))) {
+
+            LOG.log(Level.WARNING, "Cannot add duplicate client handler " + clientHandler.getIp() + ": " + clientHandler.getPort());
+            return;
+        }
+
         clientThreads.submit(clientHandler);
         clientHandlers.add(clientHandler);
     }

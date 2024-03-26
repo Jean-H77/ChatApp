@@ -3,6 +3,7 @@ package org.chat;
 import org.chat.net.server.ClientHandler;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -11,7 +12,7 @@ import java.util.Set;
 public class Chat {
 
     public static void main(String[] args) throws IOException {
-        int port = 5002;
+        int port = 5001;
         if(args.length > 0) {
             port = Integer.parseInt(args[0]);
         }
@@ -70,12 +71,11 @@ public class Chat {
                     peer.connect(dest, Integer.parseInt(ip));
                 }
                 case "5" -> {
-                    Set<ClientHandler> connections = peer.getConnections();
+                    List<ClientHandler> connections = peer.getConnections();
                     System.out.println("id: IP address\t\t\tPort No.");
-                    int i = 0;
-                    for(ClientHandler c : connections) {
-                        System.out.println((i+1)+": " + c.getIp() + "\t\t\t" + c.getPort());
-                        i++;
+                    for(int i = 0; i < connections.size(); i++) {
+                        ClientHandler handler = connections.get(i);
+                        System.out.println((i+1)+": " + handler.getIp() + "\t\t\t" + handler.getPort());
                     }
                 }
                 case "6" -> {

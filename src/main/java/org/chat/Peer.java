@@ -61,7 +61,7 @@ public record Peer(
         server.terminate(connectionId);
     }
 
-    public Set<ClientHandler> getConnections() {
+    public List<ClientHandler> getConnections() {
         return server.getClientHandlers();
     }
 
