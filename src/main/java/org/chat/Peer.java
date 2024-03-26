@@ -4,6 +4,7 @@ import org.chat.net.client.Client;
 import org.chat.net.server.ClientHandler;
 import org.chat.net.server.Server;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
@@ -11,6 +12,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static org.chat.net.PacketConstants.*;
 
 public record Peer(
         Server server,
@@ -19,6 +24,8 @@ public record Peer(
         ExecutorService clientExecutor,
         List<String> connections
 ) {
+
+    private static final Logger LOG = Logger.getLogger(Peer.class.getSimpleName());
 
     public static Peer create(int port) {
         return new Peer(new Server(port), new CopyOnWriteArrayList<>(), Executors.newSingleThreadExecutor(), Executors.newSingleThreadExecutor(), new CopyOnWriteArrayList<>());
@@ -35,12 +42,15 @@ public record Peer(
         clientExecutor.submit(c);
     }
 
-    public void selfConnect(String ip, int port) throws IOException {
-
-    }
-
     public void sendMessage(ClientHandler client, String message) {
-        System.out.println("Received message: " + message);
+        DataOutputStream out = client.getOut();
+        try {
+            out.write(MESSAGE_OPCODE);
+            out.writeBytes(message);
+            out.flush();
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "Unable to send message", e);
+        }
     }
 
 

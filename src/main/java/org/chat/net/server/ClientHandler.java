@@ -7,8 +7,6 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static org.chat.net.PacketConstants.CONNECTIONS_LIST_OPCODE;
-
 public class ClientHandler implements Runnable {
 
     private static final Logger LOG = Logger.getLogger(ClientHandler.class.getSimpleName());
@@ -43,14 +41,10 @@ public class ClientHandler implements Runnable {
             try {
                 if (in.available() > 0) {
                     int opcode = in.readByte();
-                    LOG.info("Incoming opcode from the client " + opcode + " \n");
                     switch (opcode) {
-                        case CONNECTIONS_LIST_OPCODE -> {
 
-                        }
                     }
                 }
-
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

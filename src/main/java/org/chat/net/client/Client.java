@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Logger;
 
-import static org.chat.net.PacketConstants.CONNECTIONS_LIST_OPCODE;
+import static org.chat.net.PacketConstants.MESSAGE_OPCODE;
 
 public class Client implements Runnable {
 
@@ -28,9 +28,8 @@ public class Client implements Runnable {
             try {
                 if (in.available() > 0) {
                     int opcode = in.readByte();
-                    LOG.info("Reading opcode: " + opcode);
                     switch (opcode) {
-                        case CONNECTIONS_LIST_OPCODE -> populateConnectionsList();
+                        case MESSAGE_OPCODE -> readMessage(in.readNBytes(in.available()));
                     }
                 }
             } catch (IOException e) {
@@ -49,15 +48,9 @@ public class Client implements Runnable {
         return socket;
     }
 
-    public void populateConnectionsList() throws IOException {
-        connections.clear();
-        int size = in.read();
-        for(int i = 0; i < size; i++) {
-            int length = in.read();
-            String ip = new String(in.readNBytes(length));
-            int port = in.readUnsignedShort();
-            connections.add(ip + ":" + port);
-        }
+    public void readMessage(byte[] payload) {
+        String messageReceived = new String(payload);
+        System.out.println("Reading message: " + messageReceived);
     }
 
     public List<String> getConnections() {
