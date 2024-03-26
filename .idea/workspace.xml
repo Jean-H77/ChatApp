@@ -9,15 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4aec0ea3-0381-4dc9-942a-dc463d18387e" name="Changes" comment="updates">
+    <list default="true" id="4aec0ea3-0381-4dc9-942a-dc463d18387e" name="Changes" comment="add message length check">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/Chat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chat/Chat.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/Main$1.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/Main$2.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/Peer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chat/Peer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/net/server/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chat/net/server/ClientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/net/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chat/net/server/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -227,7 +223,9 @@
       <workItem from="1711346239495" duration="4959000" />
       <workItem from="1711410920928" duration="150000" />
       <workItem from="1711411306464" duration="548000" />
-      <workItem from="1711412715846" duration="1508000" />
+      <workItem from="1711412715846" duration="1565000" />
+      <workItem from="1711417617722" duration="3088000" />
+      <workItem from="1711421544553" duration="328000" />
     </task>
     <task id="LOCAL-00001" summary="updates">
       <option name="closed" value="true" />
@@ -261,7 +259,47 @@
       <option name="project" value="LOCAL" />
       <updated>1711411060041</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="add list and start messages">
+      <option name="closed" value="true" />
+      <created>1711414271082</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1711414271082</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Messaging work, fix">
+      <option name="closed" value="true" />
+      <created>1711418355666</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1711418355666</updated>
+    </task>
+    <task id="LOCAL-00007" summary="some more messages progress">
+      <option name="closed" value="true" />
+      <created>1711420619052</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1711420619052</updated>
+    </task>
+    <task id="LOCAL-00008" summary="add sent message">
+      <option name="closed" value="true" />
+      <created>1711421774512</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1711421774512</updated>
+    </task>
+    <task id="LOCAL-00009" summary="add message length check">
+      <option name="closed" value="true" />
+      <created>1711421853088</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1711421853088</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -282,6 +320,11 @@
     <MESSAGE value="change size sent/received" />
     <MESSAGE value="add PacketConstants" />
     <MESSAGE value="updates" />
-    <option name="LAST_COMMIT_MESSAGE" value="updates" />
+    <MESSAGE value="add list and start messages" />
+    <MESSAGE value="Messaging work, fix" />
+    <MESSAGE value="some more messages progress" />
+    <MESSAGE value="add sent message" />
+    <MESSAGE value="add message length check" />
+    <option name="LAST_COMMIT_MESSAGE" value="add message length check" />
   </component>
 </project>

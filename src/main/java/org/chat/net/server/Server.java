@@ -6,6 +6,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,7 +16,8 @@ public class Server implements Runnable {
 
     private static final Logger LOG = Logger.getLogger(Server.class.getSimpleName());
     private static final int BACK_LOG = 50;
-    private final ServerContext context = ServerContext.INSTANCE;
+    private final Set<ClientHandler> clients = ConcurrentHashMap.newKeySet();
+    private final ExecutorService clientThreads = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
     private final int port;
 
     private ServerSocket serverSocket;
@@ -34,7 +38,7 @@ public class Server implements Runnable {
         while (isRunning) {
             try {
                 Socket socket = serverSocket.accept();
-                context.addClientHandler(new ClientHandler(socket));
+                addClientHandler(new ClientHandler(socket));
                 System.out.println("New connection: " + socket.getInetAddress() + ":" + socket.getPort());
             } catch (IOException e) {
                 LOG.log(Level.SEVERE, "Unable to connect to server", e);
@@ -43,12 +47,11 @@ public class Server implements Runnable {
     }
 
     public ClientHandler getClientByIndex(int i) {
-        Set<ClientHandler> clientSet = context.getClients();
-        return new ArrayList<>(clientSet).get(i);
+        return new ArrayList<>(clients).get(i);
     }
 
     public Set<ClientHandler> getClientHandlers() {
-        return context.getClients();
+        return clients;
     }
 
     public String getIP() {
@@ -61,5 +64,10 @@ public class Server implements Runnable {
 
     public void stop() {
         isRunning = false;
+    }
+
+    public void addClientHandler(ClientHandler clientHandler) {
+        clientThreads.submit(clientHandler);
+        clients.add(clientHandler);
     }
 }
