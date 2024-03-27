@@ -6,6 +6,7 @@ import org.chat.net.server.Server;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.SocketException;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -51,10 +52,13 @@ public record Peer(
             out.writeByte(message.length());
             out.writeBytes(message);
             out.flush();
+            System.out.println("Message sent to " + id);
+        } catch(SocketException so) {
+            System.out.println("Connection has been closed by remote host. Message failed to send.");
+            terminate(id);
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "Unable to send message", e);
         }
-        System.out.println("Message sent to " + id);
     }
 
     public void terminate(int connectionId) {

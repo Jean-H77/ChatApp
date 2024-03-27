@@ -3,6 +3,7 @@ package org.chat;
 import org.chat.net.server.ClientHandler;
 
 import java.io.IOException;
+import java.net.SocketException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;

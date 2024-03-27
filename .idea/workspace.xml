@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4aec0ea3-0381-4dc9-942a-dc463d18387e" name="Changes" comment="Worked on step 6, still gotta work on validation" />
+    <list default="true" id="4aec0ea3-0381-4dc9-942a-dc463d18387e" name="Changes" comment="Worked on step 6, still gotta work on validation">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/Chat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chat/Chat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/Peer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chat/Peer.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -63,6 +67,7 @@
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "Gradle.ChatApp [:Chat.main()].executor": "Run",
     "Gradle.ChatApp [:Main.main()].executor": "Run",
+    "Gradle.Project [:Chat.main()].executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "dart.analysis.tool.window.visible": "false",
@@ -79,7 +84,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.Chat">
+  <component name="RunManager" selected="Application.chat 2">
     <configuration name="Chat" type="Application" factoryName="Application" singleton="false" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.chat.Chat" />
       <module name="ChatApp.main" />
@@ -134,6 +139,7 @@
       <workItem from="1711267119052" duration="99000" />
       <workItem from="1711304213173" duration="109000" />
       <workItem from="1711308621078" duration="4717000" />
+      <workItem from="1711504892031" duration="3756000" />
     </task>
     <task id="LOCAL-00001" summary="updates">
       <option name="closed" value="true" />
