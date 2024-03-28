@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,7 +40,8 @@ public class ClientHandler implements Runnable {
     public void run() {
         while (isRunning) {
             try {
-                if (in.available() > 0) {
+                if (in.available() == 0) {
+                    out.writeByte(0);
                     int opcode = in.readByte();
                     System.out.println("Received");
                     switch (opcode) {
@@ -47,7 +49,15 @@ public class ClientHandler implements Runnable {
                     }
                 }
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                System.out.println("Client with the ip " + ip + " and port " + port + " has been dropped.");
+                try {
+                    socket.close();
+                    in.close();
+                    out.close();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+                stop();
             }
         }
     }

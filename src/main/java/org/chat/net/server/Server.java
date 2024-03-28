@@ -58,7 +58,6 @@ public class Server implements Runnable {
     public void terminate(int i) {
         clientHandlers.remove(i-1);
     }
-
     public String getIP() {
         return serverSocket.getInetAddress().getHostAddress();
     }
@@ -83,4 +82,5 @@ public class Server implements Runnable {
         clientThreads.submit(clientHandler);
         clientHandlers.add(clientHandler);
     }
+
 }

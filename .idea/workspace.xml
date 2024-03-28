@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4aec0ea3-0381-4dc9-942a-dc463d18387e" name="Changes" comment="Worked on step 6, still gotta work on validation">
+    <list default="true" id="4aec0ea3-0381-4dc9-942a-dc463d18387e" name="Changes" comment="Worked on removing connections where the client abruptly closes the program.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/Chat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chat/Chat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/Peer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chat/Peer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/net/server/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chat/net/server/ClientHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/net/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chat/net/server/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +84,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.chat 2">
+  <component name="RunManager" selected="Application.Chat">
     <configuration name="Chat" type="Application" factoryName="Application" singleton="false" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.chat.Chat" />
       <module name="ChatApp.main" />
@@ -139,7 +139,8 @@
       <workItem from="1711267119052" duration="99000" />
       <workItem from="1711304213173" duration="109000" />
       <workItem from="1711308621078" duration="4717000" />
-      <workItem from="1711504892031" duration="3756000" />
+      <workItem from="1711504892031" duration="3883000" />
+      <workItem from="1711579113269" duration="9499000" />
     </task>
     <task id="LOCAL-00001" summary="updates">
       <option name="closed" value="true" />
@@ -165,7 +166,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711490031545</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Worked on removing connections where the client abruptly closes the program.">
+      <option name="closed" value="true" />
+      <created>1711510962496</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1711510962497</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -186,6 +195,7 @@
     <MESSAGE value="updates" />
     <MESSAGE value="change size sent/received" />
     <MESSAGE value="Worked on step 6, still gotta work on validation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Worked on step 6, still gotta work on validation" />
+    <MESSAGE value="Worked on removing connections where the client abruptly closes the program." />
+    <option name="LAST_COMMIT_MESSAGE" value="Worked on removing connections where the client abruptly closes the program." />
   </component>
 </project>
