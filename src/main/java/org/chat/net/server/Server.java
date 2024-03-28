@@ -55,9 +55,16 @@ public class Server implements Runnable {
         return clientHandlers;
     }
 
-    public void terminate(int i) throws IOException {
-        clientHandlers.get(i-1).getSocket().close();
-        clientHandlers.remove(i-1);
+    public void terminate(int i) {
+        try {
+            ClientHandler ch = clientHandlers.get(i-1);
+            ch.getOut().close();
+            ch.getIn().close();
+            ch.getSocket().close();
+            clientHandlers.remove(ch);
+        } catch (IOException e) {
+            LOG.log(Level.SEVERE, "Unable to remove client");
+        }
     }
     public String getIP() {
         return serverSocket.getInetAddress().getHostAddress();

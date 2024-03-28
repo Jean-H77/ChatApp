@@ -60,7 +60,7 @@ public record Peer(
         }
     }
 
-    public void terminate(int connectionId) throws IOException {
+    public void terminate(int connectionId) {
         server.terminate(connectionId);
     }
 

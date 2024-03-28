@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4aec0ea3-0381-4dc9-942a-dc463d18387e" name="Changes" comment="Worked on removing connections where the client abruptly closes the program.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/Chat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chat/Chat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/Peer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chat/Peer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/net/server/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chat/net/server/ClientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/net/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chat/net/server/Server.java" afterDir="false" />
-    </list>
+    <list default="true" id="4aec0ea3-0381-4dc9-942a-dc463d18387e" name="Changes" comment="Fixed a few bugs and closed socket after termination." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -176,7 +170,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711510962497</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Fixed a few bugs and closed socket after termination.">
+      <option name="closed" value="true" />
+      <created>1711655098027</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1711655098028</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -198,6 +200,7 @@
     <MESSAGE value="change size sent/received" />
     <MESSAGE value="Worked on step 6, still gotta work on validation" />
     <MESSAGE value="Worked on removing connections where the client abruptly closes the program." />
-    <option name="LAST_COMMIT_MESSAGE" value="Worked on removing connections where the client abruptly closes the program." />
+    <MESSAGE value="Fixed a few bugs and closed socket after termination." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed a few bugs and closed socket after termination." />
   </component>
 </project>
