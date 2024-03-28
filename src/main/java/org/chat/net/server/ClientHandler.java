@@ -49,7 +49,7 @@ public class ClientHandler implements Runnable {
                     }
                 }
             } catch (IOException e) {
-                System.out.println("Client with the ip " + ip + " and port " + port + " has been dropped.");
+                    System.out.println("Client with the ip " + ip + " and port " + port + " has been dropped.");
                 try {
                     socket.close();
                     in.close();

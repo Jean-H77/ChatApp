@@ -53,15 +53,14 @@ public record Peer(
             out.writeBytes(message);
             out.flush();
             System.out.println("Message sent to " + id);
-        } catch(SocketException so) {
-            System.out.println("Connection has been closed by remote host. Message failed to send.");
-            terminate(id);
+        } catch (SocketException so) {
+          System.out.println("Connection has been closed by remote host. Message failed to send.");
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "Unable to send message", e);
         }
     }
 
-    public void terminate(int connectionId) {
+    public void terminate(int connectionId) throws IOException {
         server.terminate(connectionId);
     }
 

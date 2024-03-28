@@ -2,6 +2,7 @@ package org.chat;
 
 import org.chat.net.server.ClientHandler;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.SocketException;
 import java.util.List;
@@ -81,7 +82,7 @@ public class Chat {
                 }
                 case "6" -> {
                     System.out.println("Enter in a <connection id> to terminate");
-                    int line = scanner.nextInt();
+                    int line = Integer.parseInt(scanner.nextLine());
                     peer.sendMessage(line, "The connection has been terminated. Please connect again if you want to receive messages from this user.");
                     peer.terminate(line);
                 }
@@ -97,7 +98,9 @@ public class Chat {
                         peer.sendMessage(id, message);
                     }
                 }
-                case "8" -> isRunning = false;
+                case "8" -> {
+                    isRunning = false;
+                }
             }
         }
     }

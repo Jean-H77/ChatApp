@@ -55,7 +55,8 @@ public class Server implements Runnable {
         return clientHandlers;
     }
 
-    public void terminate(int i) {
+    public void terminate(int i) throws IOException {
+        clientHandlers.get(i-1).getSocket().close();
         clientHandlers.remove(i-1);
     }
     public String getIP() {
