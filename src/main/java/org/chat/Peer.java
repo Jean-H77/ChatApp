@@ -37,12 +37,24 @@ public record Peer(
     }
 
     public void connect(String dest, int port) throws IOException {
-        Client c = new Client();
-        c.connect(dest, port);
-        LOG.info("Connecting to: " + dest + " " + port);
-        clients.add(c);
-        clientExecutor.submit(c);
-        LOG.info("Client size: " + clients.size());
+        int count = 0;
+        for (Client client : clients) {
+            if (client.getSocket().getInetAddress().toString().equals("/" + dest) && client.getSocket().getPort() == port) {
+                System.out.println("Sorry, no duplicate connections.");
+                count++;
+                break;
+            }
+        }
+        if(count != 1) {
+            Client c = new Client();
+            c.connect(dest, port);
+            LOG.info("Connecting to: " + dest + " " + port);
+            clients.add(c);
+            clientExecutor.submit(c);
+            LOG.info("Client size: " + clients.size());
+            ClientHandler obj = new ClientHandler(c.getSocket(), 2);
+            server.addClientHandler(obj, 2);
+        }
     }
 
     public void sendMessage(int id, String message) {

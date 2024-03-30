@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4aec0ea3-0381-4dc9-942a-dc463d18387e" name="Changes" comment="Fixed a few bugs and closed socket after termination." />
+    <list default="true" id="4aec0ea3-0381-4dc9-942a-dc463d18387e" name="Changes" comment="Removed throw IOException and added try catch with log">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/Peer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chat/Peer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/net/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chat/net/client/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/net/server/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chat/net/server/ClientHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/net/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chat/net/server/Server.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -80,7 +86,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.chat 2">
+  <component name="RunManager" selected="Application.chat 3">
     <configuration name="Chat" type="Application" factoryName="Application" singleton="false" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.chat.Chat" />
       <module name="ChatApp.main" />
@@ -178,7 +184,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711655098028</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Removed throw IOException and added try catch with log">
+      <option name="closed" value="true" />
+      <created>1711665836081</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1711665836081</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -201,6 +215,7 @@
     <MESSAGE value="Worked on step 6, still gotta work on validation" />
     <MESSAGE value="Worked on removing connections where the client abruptly closes the program." />
     <MESSAGE value="Fixed a few bugs and closed socket after termination." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed a few bugs and closed socket after termination." />
+    <MESSAGE value="Removed throw IOException and added try catch with log" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed throw IOException and added try catch with log" />
   </component>
 </project>

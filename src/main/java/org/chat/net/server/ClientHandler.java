@@ -8,6 +8,8 @@ import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static org.chat.net.PacketConstants.MESSAGE_OPCODE;
+
 public class ClientHandler implements Runnable {
 
     private static final Logger LOG = Logger.getLogger(ClientHandler.class.getSimpleName());
@@ -19,10 +21,15 @@ public class ClientHandler implements Runnable {
     private DataInputStream in;
     private boolean isRunning;
 
-    public ClientHandler(Socket socket) {
+    public ClientHandler(Socket socket, int value) {
         this.socket = socket;
         this.ip = socket.getInetAddress().getHostAddress();
-        this.port = socket.getPort();
+        if (value == 1) {
+            this.port = socket.getPort();
+        }
+        else {
+            this.port = socket.getLocalPort();
+        }
         try {
             out = new DataOutputStream(socket.getOutputStream());
             in = new DataInputStream(socket.getInputStream());
@@ -43,9 +50,9 @@ public class ClientHandler implements Runnable {
                 if (in.available() == 0) {
                     out.writeByte(0);
                     int opcode = in.readByte();
-                    System.out.println("Received");
+                    //System.out.println("Received");
                     switch (opcode) {
-
+                       case MESSAGE_OPCODE -> readMessage();
                     }
                 }
             } catch (IOException e) {
@@ -72,6 +79,20 @@ public class ClientHandler implements Runnable {
 
     public DataOutputStream getOut() {
         return out;
+    }
+
+    public void readMessage() {
+        try {
+            int messageLength = in.readByte();
+            String messageReceived = new String(in.readNBytes(messageLength));
+            String connectionIp = socket.getInetAddress().getHostAddress();
+            int senderPort = socket.getPort();
+            System.out.println("Message received from " + connectionIp);
+            System.out.println("Sender's Port: " + senderPort);
+            System.out.println("Message: " + messageReceived);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public DataInputStream getIn() {
