@@ -58,8 +58,9 @@ public record Peer(
     }
 
     public void sendMessage(int id, String message) {
-        DataOutputStream out = getClientByIndex(id).getOut();
+        //DataOutputStream out = getClientByIndex(id).getOut();
         try {
+            DataOutputStream out = getClientByIndex(id).getOut();
             out.writeByte(MESSAGE_OPCODE);
             out.writeByte(message.length());
             out.writeBytes(message);
@@ -67,6 +68,8 @@ public record Peer(
             System.out.println("Message sent to " + id);
         } catch (SocketException so) {
           System.out.println("Connection has been closed by remote host. Message failed to send.");
+        } catch (NullPointerException e) {
+            System.out.println("There is no connection with that id.");
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "Unable to send message", e);
         }

@@ -4,7 +4,9 @@ import org.chat.net.server.ClientHandler;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.ConnectException;
 import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
@@ -64,13 +66,21 @@ public class Chat {
                 case "4" -> {
                     System.out.println("Enter <destination> <port> :");
                     String[] parts = scanner.nextLine().split("\\s+");
-                    String dest = parts[0];
-                    String ip = parts[1];
-                    if (Integer.parseInt(ip) == port) {
-                        System.out.println("Sorry, you can't do a self-connection.");
-                        break;
+                    try {
+                        String dest = parts[0];
+                        String ip = parts[1];
+                        if (Integer.parseInt(ip) == port) {
+                            System.out.println("Sorry, you can't do a self-connection.");
+                            break;
+                        }
+                        peer.connect(dest, Integer.parseInt(ip));
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("Please enter a valid input.");
+                    } catch (UnknownHostException e) {
+                        System.out.println("Destination is not recognized. Please enter in a valid connection.");
+                    } catch (ConnectException e) {
+                        System.out.println("Connection has been refused.");
                     }
-                    peer.connect(dest, Integer.parseInt(ip));
                 }
                 case "5" -> {
                     List<ClientHandler> connections = peer.getConnections();
@@ -90,12 +100,17 @@ public class Chat {
                     System.out.println("Enter <connection.id.> <message>");
                     String line = scanner.nextLine();
                     String[] parts = line.split("\\s", 2);
-                    int id = Integer.parseInt(parts[0]);
-                    String message = parts[1];
-                    if(message.length() > 100) {
-                        System.out.println("Unable to send message with length " + message.length());
-                    } else {
-                        peer.sendMessage(id, message);
+                    try {
+                        int id = Integer.parseInt(parts[0]);
+                        String message = parts[1];
+
+                        if (message.length() > 100) {
+                            System.out.println("Unable to send message with length " + message.length());
+                        } else {
+                            peer.sendMessage(id, message);
+                        }
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("Please enter a valid input.");
                     }
                 }
                 case "8" -> {

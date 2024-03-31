@@ -48,7 +48,12 @@ public class Server implements Runnable {
     }
 
     public ClientHandler getClientByIndex(int i) {
-        return clientHandlers.get(i);
+        if (i > clientHandlers.size() || i < 1) {
+            return null;
+        }
+        else {
+            return clientHandlers.get(i);
+        }
     }
 
     public List<ClientHandler> getClientHandlers() {
@@ -64,7 +69,7 @@ public class Server implements Runnable {
             clientHandlers.remove(ch);
         } catch (IOException e) {
             LOG.log(Level.SEVERE, "Unable to remove client");
-        }
+        } catch (IndexOutOfBoundsException ignored) {}
     }
     public String getIP() {
         return serverSocket.getInetAddress().getHostAddress();

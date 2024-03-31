@@ -53,7 +53,7 @@ public class Client implements Runnable {
             int messageLength = in.readByte();
             String messageReceived = new String(in.readNBytes(messageLength));
             String connectionIp = socket.getInetAddress().getHostAddress();
-            int senderPort = socket.getPort();
+            int senderPort = socket.getLocalPort();
             System.out.println("Message received from " + connectionIp);
             System.out.println("Sender's Port: " + senderPort);
             System.out.println("Message: " + messageReceived);

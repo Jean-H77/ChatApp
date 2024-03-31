@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4aec0ea3-0381-4dc9-942a-dc463d18387e" name="Changes" comment="Removed throw IOException and added try catch with log">
+    <list default="true" id="4aec0ea3-0381-4dc9-942a-dc463d18387e" name="Changes" comment="Worked on duplication connections and adding processes the client joins to list">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/Chat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chat/Chat.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/Peer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chat/Peer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/net/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chat/net/client/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/net/server/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chat/net/server/ClientHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/net/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chat/net/server/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -86,7 +86,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.chat 3">
+  <component name="RunManager" selected="Application.chat 2">
     <configuration name="Chat" type="Application" factoryName="Application" singleton="false" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.chat.Chat" />
       <module name="ChatApp.main" />
@@ -192,7 +192,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711665836081</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Worked on duplication connections and adding processes the client joins to list">
+      <option name="closed" value="true" />
+      <created>1711833911540</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1711833911540</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -216,6 +224,7 @@
     <MESSAGE value="Worked on removing connections where the client abruptly closes the program." />
     <MESSAGE value="Fixed a few bugs and closed socket after termination." />
     <MESSAGE value="Removed throw IOException and added try catch with log" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed throw IOException and added try catch with log" />
+    <MESSAGE value="Worked on duplication connections and adding processes the client joins to list" />
+    <option name="LAST_COMMIT_MESSAGE" value="Worked on duplication connections and adding processes the client joins to list" />
   </component>
 </project>
