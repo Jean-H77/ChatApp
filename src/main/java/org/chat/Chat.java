@@ -84,6 +84,9 @@ public class Chat {
                 }
                 case "5" -> {
                     List<ClientHandler> connections = peer.getConnections();
+                    for(int i = 1; i <= connections.size(); i++) {
+                        peer.sendMessageRemoval(i, "");
+                    }
                     System.out.println("id: IP address\t\t\tPort No.");
                     for(int i = 0; i < connections.size(); i++) {
                         ClientHandler handler = connections.get(i);
@@ -103,7 +106,6 @@ public class Chat {
                     try {
                         int id = Integer.parseInt(parts[0]);
                         String message = parts[1];
-
                         if (message.length() > 100) {
                             System.out.println("Unable to send message with length " + message.length());
                         } else {
@@ -114,9 +116,17 @@ public class Chat {
                     }
                 }
                 case "8" -> {
+                    List<ClientHandler> connections = peer.getConnections();
+                    int size = connections.size();
+                    for(int i = 0; i < size; i++) {
+                        peer.terminate(1);
+                    }
+                    peer.stop();
+                    System.out.println("Goodbye!");
                     isRunning = false;
                 }
             }
         }
+        System.exit(0);
     }
 }

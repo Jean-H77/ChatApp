@@ -48,7 +48,7 @@ public class Server implements Runnable {
     }
 
     public ClientHandler getClientByIndex(int i) {
-        if (i > clientHandlers.size() || i < 1) {
+        if (i > clientHandlers.size() || i < 0) {
             return null;
         }
         else {

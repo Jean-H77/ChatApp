@@ -1,10 +1,14 @@
 package org.chat.net.server;
 
+import org.chat.Peer;
+import org.chat.net.client.Client;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,7 +20,6 @@ public class ClientHandler implements Runnable {
     private final Socket socket;
     private final String ip;
     private final int port;
-
     private DataOutputStream out;
     private DataInputStream in;
     private boolean isRunning;
@@ -47,12 +50,13 @@ public class ClientHandler implements Runnable {
     public void run() {
         while (isRunning) {
             try {
-                if (in.available() == 0) {
+                if (in.available() >= 0) {
                     out.writeByte(0);
                     int opcode = in.readByte();
                     //System.out.println("Received");
                     switch (opcode) {
                        case MESSAGE_OPCODE -> readMessage();
+                       case -5 -> readMessageRemoval();
                     }
                 }
             } catch (IOException e) {
@@ -90,6 +94,15 @@ public class ClientHandler implements Runnable {
             System.out.println("Message received from " + connectionIp);
             System.out.println("Sender's Port: " + senderPort);
             System.out.println("Message: " + messageReceived);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void readMessageRemoval() {
+        try {
+            int messageLength = in.readByte();
+            String messageReceived = new String(in.readNBytes(messageLength));
         } catch (Exception e) {
             e.printStackTrace();
         }

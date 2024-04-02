@@ -58,7 +58,6 @@ public record Peer(
     }
 
     public void sendMessage(int id, String message) {
-        //DataOutputStream out = getClientByIndex(id).getOut();
         try {
             DataOutputStream out = getClientByIndex(id).getOut();
             out.writeByte(MESSAGE_OPCODE);
@@ -68,10 +67,25 @@ public record Peer(
             System.out.println("Message sent to " + id);
         } catch (SocketException so) {
           System.out.println("Connection has been closed by remote host. Message failed to send.");
+          server.terminate(id);
         } catch (NullPointerException e) {
             System.out.println("There is no connection with that id.");
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "Unable to send message", e);
+        }
+    }
+
+    public void sendMessageRemoval(int id, String message) {
+        try {
+            DataOutputStream out = getClientByIndex(id).getOut();
+            out.writeByte(-5);
+            out.writeByte(message.length());
+            out.writeBytes(message);
+            out.flush();
+        } catch (SocketException e) {
+           server.terminate(id);
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "Error");
         }
     }
 
@@ -88,8 +102,11 @@ public record Peer(
     }
 
     public void stop() {
+        Client c = new Client();
         serverExecutor.shutdown();
         clientExecutor.shutdown();
+        server.stop();
+        c.stop();
         try {
             if (!serverExecutor.awaitTermination(800, TimeUnit.MILLISECONDS)) {
                 serverExecutor.shutdownNow();
