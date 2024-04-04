@@ -31,7 +31,7 @@ public class ClientHandler implements Runnable {
             this.port = socket.getPort();
         }
         else {
-            this.port = socket.getLocalPort();
+            this.port = socket.getPort();
         }
         try {
             out = new DataOutputStream(socket.getOutputStream());
@@ -51,7 +51,7 @@ public class ClientHandler implements Runnable {
         while (isRunning) {
             try {
                 if (in.available() >= 0) {
-                    out.writeByte(0);
+                    //out.writeByte(0);
                     int opcode = in.readByte();
                     //System.out.println("Received");
                     switch (opcode) {
@@ -91,7 +91,7 @@ public class ClientHandler implements Runnable {
             String messageReceived = new String(in.readNBytes(messageLength));
             String connectionIp = socket.getInetAddress().getHostAddress();
             int senderPort = socket.getPort();
-            System.out.println("Message received from " + connectionIp);
+            System.out.println("\nMessage received from " + connectionIp);
             System.out.println("Sender's Port: " + senderPort);
             System.out.println("Message: " + messageReceived);
         } catch (Exception e) {

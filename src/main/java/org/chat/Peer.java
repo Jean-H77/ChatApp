@@ -37,15 +37,6 @@ public record Peer(
     }
 
     public void connect(String dest, int port) throws IOException {
-        int count = 0;
-        for (Client client : clients) {
-            if (client.getSocket().getInetAddress().toString().equals("/" + dest) && client.getSocket().getPort() == port) {
-                System.out.println("Sorry, no duplicate connections.");
-                count++;
-                break;
-            }
-        }
-        if(count != 1) {
             Client c = new Client();
             c.connect(dest, port);
             LOG.info("Connecting to: " + dest + " " + port);
@@ -54,7 +45,6 @@ public record Peer(
             LOG.info("Client size: " + clients.size());
             ClientHandler obj = new ClientHandler(c.getSocket(), 2);
             server.addClientHandler(obj, 2);
-        }
     }
 
     public void sendMessage(int id, String message) {
@@ -63,12 +53,11 @@ public record Peer(
             out.writeByte(MESSAGE_OPCODE);
             out.writeByte(message.length());
             out.writeBytes(message);
-            out.flush();
             System.out.println("Message sent to " + id);
         } catch (SocketException so) {
           System.out.println("Connection has been closed by remote host. Message failed to send.");
           server.terminate(id);
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
             System.out.println("There is no connection with that id.");
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "Unable to send message", e);

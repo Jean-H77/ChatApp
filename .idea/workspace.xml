@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4aec0ea3-0381-4dc9-942a-dc463d18387e" name="Changes" comment="Worked on error handling for steps 4, 6, and 7">
+    <list default="true" id="4aec0ea3-0381-4dc9-942a-dc463d18387e" name="Changes" comment="Finished step 8 with removal of connections that exited.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/Chat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chat/Chat.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/Peer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chat/Peer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/net/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chat/net/client/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/net/server/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chat/net/server/ClientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/net/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chat/net/server/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +61,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Gradle.Build ChatApp.executor": "Run",
     "Gradle.ChatApp [:Chat.main()].executor": "Run",
     "Gradle.ChatApp [:Main.main()].executor": "Run",
     "Gradle.Project [:Chat.main()].executor": "Run",
@@ -205,7 +204,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711845137742</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Finished step 8 with removal of connections that exited.">
+      <option name="closed" value="true" />
+      <created>1712032774309</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1712032774309</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -231,6 +238,18 @@
     <MESSAGE value="Removed throw IOException and added try catch with log" />
     <MESSAGE value="Worked on duplication connections and adding processes the client joins to list" />
     <MESSAGE value="Worked on error handling for steps 4, 6, and 7" />
-    <option name="LAST_COMMIT_MESSAGE" value="Worked on error handling for steps 4, 6, and 7" />
+    <MESSAGE value="Finished step 8 with removal of connections that exited." />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished step 8 with removal of connections that exited." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/chat/net/server/ClientHandler.java</url>
+          <line>89</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

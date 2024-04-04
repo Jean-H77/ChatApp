@@ -64,6 +64,8 @@ public class Chat {
                 case "2" -> System.out.println("process IP address: " + peer.server().getIP());
                 case "3" -> System.out.println("Port: " + peer.server().getPort());
                 case "4" -> {
+                    int count = 0;
+                    List<ClientHandler> list = peer.getConnections();
                     System.out.println("Enter <destination> <port> :");
                     String[] parts = scanner.nextLine().split("\\s+");
                     try {
@@ -73,7 +75,18 @@ public class Chat {
                             System.out.println("Sorry, you can't do a self-connection.");
                             break;
                         }
-                        peer.connect(dest, Integer.parseInt(ip));
+                        if (!list.isEmpty()) {
+                            for (ClientHandler clientHandler : list) {
+                                if (clientHandler.getIp().equals(dest) && clientHandler.getSocket().getPort() == Integer.parseInt(ip)) {
+                                    System.out.println("You are already connected to this connection.");
+                                    count++;
+                                    break;
+                                }
+                            }
+                        }
+                        if (count != 1) {
+                            peer.connect(dest, Integer.parseInt(ip));
+                        }
                     } catch (ArrayIndexOutOfBoundsException e) {
                         System.out.println("Please enter a valid input.");
                     } catch (UnknownHostException e) {
@@ -94,10 +107,14 @@ public class Chat {
                     }
                 }
                 case "6" -> {
-                    System.out.println("Enter in a <connection id> to terminate");
-                    int line = Integer.parseInt(scanner.nextLine());
-                    peer.sendMessage(line, "The connection has been terminated. Please connect again if you want to receive messages from this user.");
-                    peer.terminate(line);
+                    try {
+                        System.out.println("Enter in a <connection id> to terminate");
+                        int line = Integer.parseInt(scanner.nextLine());
+                        peer.sendMessage(line, "Connection has been terminated.");
+                        peer.terminate(line);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Please put a valid input.");
+                    }
                 }
                 case "7" -> {
                     System.out.println("Enter <connection.id.> <message>");
@@ -111,7 +128,7 @@ public class Chat {
                         } else {
                             peer.sendMessage(id, message);
                         }
-                    } catch (ArrayIndexOutOfBoundsException e) {
+                    } catch (IndexOutOfBoundsException | NumberFormatException e) {
                         System.out.println("Please enter a valid input.");
                     }
                 }
