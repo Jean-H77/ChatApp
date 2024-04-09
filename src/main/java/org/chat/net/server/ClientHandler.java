@@ -1,14 +1,9 @@
 package org.chat.net.server;
 
-import org.chat.Peer;
-import org.chat.net.client.Client;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.net.SocketException;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,15 +19,10 @@ public class ClientHandler implements Runnable {
     private DataInputStream in;
     private boolean isRunning;
 
-    public ClientHandler(Socket socket, int value) {
+    public ClientHandler(Socket socket) {
         this.socket = socket;
         this.ip = socket.getInetAddress().getHostAddress();
-        if (value == 1) {
-            this.port = socket.getPort();
-        }
-        else {
-            this.port = socket.getPort();
-        }
+        this.port = socket.getPort();
         try {
             out = new DataOutputStream(socket.getOutputStream());
             in = new DataInputStream(socket.getInputStream());
@@ -51,9 +41,7 @@ public class ClientHandler implements Runnable {
         while (isRunning) {
             try {
                 if (in.available() >= 0) {
-                    //out.writeByte(0);
                     int opcode = in.readByte();
-                    //System.out.println("Received");
                     switch (opcode) {
                        case MESSAGE_OPCODE -> readMessage();
                        case -5 -> readMessageRemoval();
@@ -110,14 +98,6 @@ public class ClientHandler implements Runnable {
 
     public DataInputStream getIn() {
         return in;
-    }
-
-    public boolean isRunning() {
-        return isRunning;
-    }
-
-    public void setRunning(boolean running) {
-        isRunning = running;
     }
 
     public String getIp() {

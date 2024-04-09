@@ -1,16 +1,10 @@
 package org.chat.net.client;
 
-import org.chat.Peer;
-import org.chat.net.server.ClientHandler;
-import org.chat.net.server.Server;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static org.chat.net.PacketConstants.MESSAGE_OPCODE;
@@ -27,7 +21,7 @@ public class Client implements Runnable {
     @Override
     public void run() {
         isRunning = true;
-        LOG.info("Running client loop");
+        LOG.log(Level.ALL,"Running client loop");
         while(isRunning) {
             try {
                 if (in.available() >= 0) {
@@ -56,7 +50,7 @@ public class Client implements Runnable {
         socket = new Socket(ip, port);
         out = new DataOutputStream(socket.getOutputStream());
         in = new DataInputStream(socket.getInputStream());
-        LOG.info("Started client connection");
+        LOG.log(Level.ALL,"Started client connection");
     }
 
     public Socket getSocket() {
@@ -68,7 +62,7 @@ public class Client implements Runnable {
             int messageLength = in.readByte();
             String messageReceived = new String(in.readNBytes(messageLength));
             String connectionIp = socket.getInetAddress().getHostAddress();
-            int senderPort = socket.getLocalPort();
+            int senderPort = socket.getPort();
             System.out.println("Message received from " + connectionIp);
             System.out.println("Sender's Port: " + senderPort);
             System.out.println("Message: " + messageReceived);
@@ -86,16 +80,8 @@ public class Client implements Runnable {
         }
     }
 
-    public boolean isRunning() {
-        return isRunning;
-    }
-
     public void setRunning(boolean running) {
         isRunning = running;
-    }
-
-    public DataOutputStream getOut() {
-        return out;
     }
 
     public void stop() {

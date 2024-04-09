@@ -8,7 +8,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.SocketException;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -39,11 +38,11 @@ public record Peer(
     public void connect(String dest, int port) throws IOException {
             Client c = new Client();
             c.connect(dest, port);
-            LOG.info("Connecting to: " + dest + " " + port);
+            LOG.log(Level.ALL,"Connecting to: " + dest + " " + port);
             clients.add(c);
             clientExecutor.submit(c);
-            LOG.info("Client size: " + clients.size());
-            ClientHandler obj = new ClientHandler(c.getSocket(), 2);
+            LOG.log(Level.ALL,"Client size: " + clients.size());
+            ClientHandler obj = new ClientHandler(c.getSocket());
             server.addClientHandler(obj, 2);
     }
 

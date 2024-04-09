@@ -2,17 +2,13 @@ package org.chat;
 
 import org.chat.net.server.ClientHandler;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ConnectException;
-import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
 
-// java -cp <classpath> <main_class> <arguments>
-// 192.168.1.228
+
 public class Chat {
 
     public static void main(String[] args) throws IOException {
@@ -86,6 +82,7 @@ public class Chat {
                         }
                         if (count != 1) {
                             peer.connect(dest, Integer.parseInt(ip));
+                            System.out.println("Connection Successful!");
                         }
                     } catch (ArrayIndexOutOfBoundsException e) {
                         System.out.println("Please enter a valid input.");

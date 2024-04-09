@@ -39,7 +39,7 @@ public class Server implements Runnable {
         while (isRunning) {
             try {
                 Socket socket = serverSocket.accept();
-                addClientHandler(new ClientHandler(socket, 1), 1);
+                addClientHandler(new ClientHandler(socket), 1);
                 System.out.println("New connection: " + socket.getInetAddress() + ":" + socket.getPort());
             } catch (IOException e) {
                 LOG.log(Level.SEVERE, "Unable to connect to server", e);
@@ -84,17 +84,8 @@ public class Server implements Runnable {
     }
 
     public void addClientHandler(ClientHandler clientHandler, int value) {
-        if(clientHandlers.stream()
-                .anyMatch(c ->
-                c.getPort() == clientHandler.getPort() && Objects.equals(c.getIp(), clientHandler.getIp()))) {
-
-            LOG.log(Level.WARNING, "Cannot add duplicate client handler " + clientHandler.getIp() + ": " + clientHandler.getPort());
-            return;
-        }
-
         if (value == 1) {
             clientThreads.submit(clientHandler);
-
         }
         clientHandlers.add(clientHandler);
     }
