@@ -9,13 +9,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4aec0ea3-0381-4dc9-942a-dc463d18387e" name="Changes" comment="Worked on not allowing duplicate connections">
+    <list default="true" id="4aec0ea3-0381-4dc9-942a-dc463d18387e" name="Changes" comment="Fixed the code to make it look a bit better.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/Chat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chat/Chat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/Peer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chat/Peer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/net/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chat/net/client/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/net/server/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chat/net/server/ClientHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/chat/net/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chat/net/server/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -286,7 +281,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712263567750</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Fixed the code to make it look a bit better.">
+      <option name="closed" value="true" />
+      <created>1712701139183</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1712701139183</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -314,6 +317,7 @@
     <MESSAGE value="Worked on error handling for steps 4, 6, and 7" />
     <MESSAGE value="Finished step 8 with removal of connections that exited." />
     <MESSAGE value="Worked on not allowing duplicate connections" />
-    <option name="LAST_COMMIT_MESSAGE" value="Worked on not allowing duplicate connections" />
+    <MESSAGE value="Fixed the code to make it look a bit better." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed the code to make it look a bit better." />
   </component>
 </project>

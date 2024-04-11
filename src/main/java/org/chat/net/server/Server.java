@@ -1,6 +1,7 @@
 package org.chat.net.server;
 
 import java.io.IOException;
+import java.net.BindException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -32,8 +33,9 @@ public class Server implements Runnable {
     public void run() {
         try {
             serverSocket = new ServerSocket(port, BACK_LOG, InetAddress.getLocalHost());
-        } catch (IOException e) {
-            LOG.log(Level.SEVERE, "Unable to start server on port: " + port, e);
+        } catch (Exception e) {
+            System.out.println("Unable to start server on port: " + port);
+            System.exit(0);
         }
         isRunning = true;
         while (isRunning) {
