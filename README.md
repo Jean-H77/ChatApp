@@ -6,9 +6,12 @@ In order to run the application, you must first create a jar file of the code. U
 java -jar ChatApp.jar
 
 # Jean Hanna
-  - item 1
-  - item 2
-  - item 3
+  - Worked on sending messages
+  - Worked on displaying the connections list
+  - Worked on connecting to other peers
+  - Did the print menu
+  - Made the Server class
+  - Worked on the client class 
 
 # Alek Ovsepyan
   - Worked on Step 8 of the project which involved exiting from the process.
