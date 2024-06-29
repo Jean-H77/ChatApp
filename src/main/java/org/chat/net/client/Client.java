@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static org.chat.net.PacketConstants.MESSAGE_OPCODE;
+import static org.chat.net.PacketConstants.MESSAGE_REMOVAL_OPCODE;
 
 public class Client implements Runnable {
 
@@ -29,7 +30,7 @@ public class Client implements Runnable {
                     int opcode = in.readByte();
                     switch (opcode) {
                         case MESSAGE_OPCODE -> readMessage();
-                        case -5 -> readMessageRemoval();
+                        case MESSAGE_REMOVAL_OPCODE -> readMessageRemoval();
                     }
                 }
             } catch (IOException e) {

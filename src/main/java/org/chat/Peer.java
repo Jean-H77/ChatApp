@@ -66,7 +66,7 @@ public record Peer(
     public void sendMessageRemoval(int id, String message) {
         try {
             DataOutputStream out = getClientByIndex(id).getOut();
-            out.writeByte(-5);
+            out.writeByte(MESSAGE_REMOVAL_OPCODE);
             out.writeByte(message.length());
             out.writeBytes(message);
             out.flush();
@@ -90,11 +90,10 @@ public record Peer(
     }
 
     public void stop() {
-        Client c = new Client();
         serverExecutor.shutdown();
         clientExecutor.shutdown();
+        clients.forEach(Client::stop);
         server.stop();
-        c.stop();
         try {
             if (!serverExecutor.awaitTermination(800, TimeUnit.MILLISECONDS)) {
                 serverExecutor.shutdownNow();
